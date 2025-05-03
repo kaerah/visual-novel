@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Acerte o Coração da Thay 💘</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body ontouchstart="">
+
+  <div class="animated-background"></div>
+
+  <!-- Telas -->
+  <div id="menuScreen" class="active">
+    <img src="./assets/logo.png" alt="Acerte o coração da Thay" id="gameLogo">
+    <button onclick="startGame()">Iniciar Jogo</button>
+    <button onclick="showHighScore()">Ver Recorde</button>
+    <button onclick="showCredits()">Créditos</button>
+  </div>
+
+  <div id="gameScreen">
+    <div id="score">Pontuação: 0</div>
+    <div id="timer">Tempo: 30</div>
+    <div id="gameArea"></div>
+  </div>
+
+  <div id="gameOverScreen">
+    <h2>Fim de jogo! 💔</h2>
+    <div id="finalScore" class="stats"></div>
+    <div id="loveLevel" class="stats"></div>
+    <button onclick="goToMenu()">Voltar ao Menu</button>
+  </div>
+
+  <audio id="bgMusic" loop preload="auto">
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
+  </audio>
+
+  <audio id="clickSound" preload="auto">
+    <source src="https://www.soundjay.com/button/button-16.mp3" type="audio/mp3">
+  </audio>
+
+  <audio id="voz1" preload="auto">
+    <source src="./assets/awn.mp3" type="audio/mp3">
+  </audio>
+  <audio id="voz2" preload="auto">
+    <source src="./assets/que-linda.mp3" type="audio/mp3">
+  </audio>
+
+  <script src="game.js"></script>
+</body>
+</html>
