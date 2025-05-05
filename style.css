@@ -489,18 +489,3 @@ button.secondary-button:active {
   }
 }
 
-#gameOverLogoSmall {
-  width: 80px; /* Tamanho menor do logo */
-  height: auto; /* Mantém a proporção */
-  position: absolute;
-  top: 15px; /* Distância do topo */
-  left: 50%; /* Centraliza horizontalmente */
-  transform: translateX(-50%); /* Ajusta o alinhamento */
-  z-index: 1000; /* Garante que fique acima de outros elementos */
-  display: none; /* Esconde o logo por padrão */
-}
-
-/* Exibe o logo somente quando a tela de fim de jogo está ativa */
-#gameOverScreen.active #gameOverLogoSmall {
-  display: block;
-}
