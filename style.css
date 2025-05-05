@@ -468,7 +468,6 @@ button.secondary-button:active {
   max-width: 360px; /* No PC, limita ao tamanho da gameArea */
   height: 25px;
   background: rgba(255, 255, 255, 0.2); /* Fundo translúcido */
-  border: 0px solid #ff4081; /* Borda rosa vibrante */
   border-radius: 10px;
   overflow: hidden;
   z-index: 10; /* Fica acima do fundo e da overlay */
