@@ -1,0 +1,507 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  /* Fundo animado */
+  .animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #ff4081, #ff80ab, #69007f, #0ce39a);
+    background-size: 400% 400%;
+    animation: gradientAnimation 10s ease infinite;
+    z-index: -1; /* Fica atrás de todo o conteúdo */
+  }
+
+  @keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  #menuScreen, #gameScreen {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    color: white;
+  }
+
+  #menuScreen.active, #gameScreen.active, #gameOverScreen.active {
+    display: flex;
+  }
+
+  #gameOverScreen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.8); /* Fundo escuro */
+  color: white;
+  text-align: center;
+}
+
+#resultContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px; /* Espaçamento entre os elementos */
+}
+
+#finalScoreDisplay {
+  font-size: 3em; /* Pontuação grande no centro */
+  font-weight: bold;
+  color: #ff4081;
+}
+
+#thayImage {
+  width: 150px;
+  height: auto;
+  animation: popIn 0.5s ease; /* Animação ao aparecer */
+}
+
+#loveLevelDisplay {
+  font-size: 1.2em;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  padding: 10px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#menuButton {
+  position: absolute;
+  bottom: 20px; /* Fica no final da tela */
+  left: 50%;
+  transform: translateX(-50%);
+  display: none; /* Esconde o botão por padrão */
+}
+
+#gameOverScreen.active #menuButton {
+  display: block; /* Exibe o botão apenas na tela de Game Over */
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+/* Estilo base para todos os botões */
+button {
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+  will-change: box-shadow, transform;
+  padding: 10px 20px;
+  border-radius: 12px;
+  color: white;
+  font-size: 1.2em;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+  margin: 10px 0;
+}
+
+/* Botão primário (azul) */
+button.primary-button {
+  background: radial-gradient(100% 100% at 100% 0%, #89E5FF 0%, #5468FF 100%);
+  box-shadow: 0px 2px 4px rgba(45, 35, 66, 0.4), 0px 7px 13px -3px rgba(45, 35, 66, 0.3), inset 0px -3px 0px rgba(58, 65, 111, 0.5);
+}
+
+button.primary-button:hover {
+  box-shadow: 0px 4px 8px rgba(45, 35, 66, 0.4), 0px 7px 13px -3px rgba(45, 35, 66, 0.3), inset 0px -3px 0px #3c4fe0;
+  transform: translateY(-2px);
+}
+
+button.primary-button:active {
+  box-shadow: inset 0px 3px 7px #3c4fe0;
+  transform: translateY(2px);
+}
+
+/* Botão secundário (rosa) */
+button.secondary-button {
+  background: radial-gradient(100% 100% at 100% 0%, #FF89C1 0%, #FF4081 100%);
+  box-shadow: 0px 2px 4px rgba(45, 35, 66, 0.4), 0px 7px 13px -3px rgba(255, 64, 129, 0.3), inset 0px -3px 0px rgba(255, 64, 129, 0.5);
+}
+
+button.secondary-button:hover {
+  box-shadow: 0px 4px 8px rgba(45, 35, 66, 0.4), 0px 7px 13px -3px rgba(255, 64, 129, 0.3), inset 0px -3px 0px #e03c6f;
+  transform: translateY(-2px);
+}
+
+button.secondary-button:active {
+  box-shadow: inset 0px 3px 7px #e03c6f;
+  transform: translateY(2px);
+}
+
+.modal-content ol {
+  list-style: decimal inside; /* Exibe números dentro da lista */
+  margin: 0;
+  padding: 0;
+}
+
+.modal-content li {
+  margin: 8px 0; /* Espaçamento entre os itens */
+  font-size: 1em; /* Tamanho da fonte */
+  color: #333; /* Cor do texto */
+}
+
+
+    #gameArea {
+      position: relative;
+      width: 360px;
+      height: 540px;
+      background: rgba(255, 255, 255, 0.2); /* Translúcido */
+      background: linear-gradient(135deg, #f9f9f9, #e6e6e6);
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      margin: 0 auto;
+      background-image: url('https://i.postimg.cc/fRZ1ZQPB/Chat-GPT-Image-4-de-mai-de-2025-19-16-05.png'); /* Fundo com estrelas */
+      background-size: cover;
+      animation: moveBackground 10s linear infinite; /* Animação do fundo */
+    }
+
+    #gameArea div {
+      position: absolute;
+      font-size: 2.5em;
+      cursor: pointer;
+      animation: pulse 1.2s infinite;
+    }
+    
+    .overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1; /* Partículas ficam acima do fundo, mas abaixo dos itens do jogo */
+      pointer-events: none; /* Garante que a overlay não interfira na interação */
+      overflow: hidden;
+    }
+    
+    .overlay::before,
+    .overlay::after {
+      content: "";
+      position: absolute;
+      width: 150%;
+      height: 150%;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+      animation: floatParticles 60s linear infinite;
+      opacity: 0.2;
+    }
+    
+    .overlay::after {
+      animation-delay: -30s;
+      background-size: 25px 25px;
+    }
+    
+    @keyframes floatParticles {
+      0% {
+        transform: translateY(0%) rotate(0deg);
+      }
+      100% {
+        transform: translateY(-50%) rotate(360deg);
+      }
+    }
+    
+
+    .heart {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-image: url('https://i.postimg.cc/JHDjHMPy/heart.gif');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      cursor: pointer;
+      filter: hue-rotate(0deg);
+      animation: pulse 1.2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+      100% { transform: scale(1); }
+    }
+
+    .floating-heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-image: url('https://i.postimg.cc/JHDjHMPy/heart.gif');
+      background-size: cover;
+      opacity: 0.5;
+      animation: floatUp 6s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) scale(0.8); opacity: 0.5; }
+      100% { transform: translateY(-20vh) scale(1.2); opacity: 0; }
+    }
+
+    #score, #timer {
+      margin: 10px;
+      font-size: 1.2em;
+    }
+
+    .stats {
+      font-size: 1.2em;
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    #statsBox {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  width: 360px;
+  margin: 20px auto;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 150px; /* Largura de cada caixa */
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.label {
+  position: absolute;
+  top: -20px;
+  font-size: 0.8em;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #d0d0d0;
+  margin-bottom: 12px;
+}
+
+.value {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+#score {
+  color: #e01c5d; /* Cor para os pontos */
+}
+
+#timer {
+  color: #6c1674; /* Cor para o tempo */
+}
+
+#timer.blink {
+  animation: blink 0.5s step-start infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(0) rotate(0deg);
+  }
+  75% {
+    transform: translateY(5px) rotate(1deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+#gameLogo {
+  width: 200px; /* Largura padrão */
+  max-width: 80%; /* Garante que o logo seja responsivo */
+  height: auto; /* Mantém a proporção do logo */
+  margin-bottom: 20px; /* Espaçamento abaixo do logo */
+  animation: float 4s ease-in-out infinite; /* Aplica a animação */
+}
+
+#loadingScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ff4081;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+  z-index: 1000;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(255, 255, 255, 0.3);
+  border-top: 5px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* Estilo geral para os modais */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Título do modal */
+.modal-content h2 {
+  font-size: 1.8em;
+  color: #ff4081;
+  margin-bottom: 10px;
+}
+
+/* Subtítulo do modal */
+.modal-content h3 {
+  font-size: 1.2em;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+/* Linha divisória */
+.modal-content .divider {
+  width: 80%;
+  height: 2px;
+  background-color: #ff4081;
+  margin: 15px auto;
+  border-radius: 2px;
+}
+
+/* Texto do modal */
+.modal-content p {
+  font-size: 1em;
+  color: #333;
+  line-height: 1.5;
+  margin: 10px 0;
+}
+
+/* Botão dentro do modal */
+.modal-content .button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 1em;
+  border: none;
+  border-radius: 8px;
+  background-color: #ff4081;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-content .button:hover {
+  background-color: #e0356e;
+}
+
+
+/* retirar se ficar bosta*/
+#progressContainer {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%); /* Centraliza horizontalmente */
+  width: 90%; /* Padrão: ocupa 90% da largura da tela */
+  max-width: 360px; /* No PC, limita ao tamanho da gameArea */
+  height: 25px;
+  background: rgba(255, 255, 255, 0.2); /* Fundo translúcido */
+  border: 0px solid #ff4081; /* Borda rosa vibrante */
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 10; /* Fica acima do fundo e da overlay */
+  display: none; /* Inicialmente escondido */
+}
+
+#progressBar {
+  width: 0%; /* Começa vazio */
+  height: 100%;
+  background: linear-gradient(90deg, #ff4081, #ff80ab); /* Gradiente rosa */
+  transition: width 0.3s ease; /* Animação suave ao mudar o tamanho */
+}
+
+/* Ajuste para telas maiores (PC) */
+@media (min-width: 768px) {
+  #progressContainer {
+    width: 100%; /* Ocupa toda a largura da gameArea */
+    max-width: 360px; /* Limita ao tamanho da gameArea */
+  }
+}
+
+#gameOverLogoSmall {
+  width: 80px; /* Tamanho menor do logo */
+  height: auto; /* Mantém a proporção */
+  position: absolute;
+  top: 15px; /* Distância do topo */
+  left: 50%; /* Centraliza horizontalmente */
+  transform: translateX(-50%); /* Ajusta o alinhamento */
+  z-index: 1000; /* Garante que fique acima de outros elementos */
+  display: none; /* Esconde o logo por padrão */
+}
+
+/* Exibe o logo somente quando a tela de fim de jogo está ativa */
+#gameOverScreen.active #gameOverLogoSmall {
+  display: block;
+}
